@@ -82,7 +82,7 @@ function startPage() {
   documentName.value = localStorage.getItem("documentName");
   documentExtension.value = localStorage.getItem("documentExtension");
 
-  if (localStorage.getItem("firstTimeLogged") == "") {
+  if (localStorage.getItem("firstTimeLogged") == null) {
     localStorage.setItem("firstTimeLogged", "true");
     markdownEditor.value =
       "# Welcome to Markdown\n\n\
