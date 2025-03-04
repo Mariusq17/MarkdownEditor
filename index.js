@@ -1,19 +1,19 @@
-const markdownEditor = document.getElementById("markdown");
-const previewResult = document.getElementById("preview");
-const rootStyle = getComputedStyle(document.documentElement);
+t markdownEditor = document.getElementById("markdown");
+t previewResult = document.getElementById("preview");
+t rootStyle = getComputedStyle(document.documentElement);
 previewResult.style.color = rootStyle.getPropertyValue("--normal-color");
-const saveChangesBtn = document.getElementsByClassName("save-changes-btn")[0];
-const documentName = document.getElementById("documentName");
-const documentExtension = document.getElementById("documentExtension");
-const clearBtn = document.getElementById("clearBtn");
+t saveChangesBtn = document.getElementsByClassName("save-changes-btn")[0];
+t documentName = document.getElementById("documentName");
+t documentExtension = document.getElementById("documentExtension");
+t clearBtn = document.getElementById("clearBtn");
 clearBtn.style.position = "relative";
 var timer, clearBtnTimer;
 let expectedNumber = 1; // Următorul număr așteptat în listă
-const closeMenu = document.getElementById("closeMenu");
-const burgerMenu = document.getElementById("burgerMenu");
+t closeMenu = document.getElementById("closeMenu");
+t burgerMenu = document.getElementById("burgerMenu");
 
-const goPreview = document.getElementById("goPreview");
-const goEditor = document.getElementById("goEditor");
+t goPreview = document.getElementById("goPreview");
+t goEditor = document.getElementById("goEditor");
 
 previewResult.clientHeight = markdownEditor.clientHeight;
 startPage();
@@ -33,11 +33,9 @@ goPreview.addEventListener("click", () => {
 
 closeMenu.addEventListener("click", () => {
   document.querySelector(".document-infos").classList.remove("show");
-  console.log("meniu inchis");
 });
 burgerMenu.addEventListener("click", () => {
   document.querySelector(".document-infos").classList.add("show");
-  console.log("meniu deschis");
 });
 
 clearBtn.addEventListener("click", () => {
@@ -82,7 +80,7 @@ function startPage() {
   documentName.value = localStorage.getItem("documentName");
   documentExtension.value = localStorage.getItem("documentExtension");
 
-  if (localStorage.getItem("firstTimeLogged") == "") {
+  if (localStorage.getItem("firstTimeLogged") == null) {
     localStorage.setItem("firstTimeLogged", "true");
     markdownEditor.value =
       "# Welcome to Markdown\n\n\
@@ -126,7 +124,6 @@ function formatTextAutomatically() {
 }
 
 function showChanges(lines) {
-  console.log(lines.length);
   previewResult.innerHTML = "";
   let inCodeBlock = false; // Variabilă pentru a indica dacă suntem într-un block de cod
   let codeBlockContent = []; // Stochează conținutul block-ului de cod
@@ -141,8 +138,8 @@ function showChanges(lines) {
     if (line === "```") {
       if (inCodeBlock) {
         // Dacă suntem deja într-un block de cod, se încheie block-ul
-        const codeBlock = document.createElement("pre");
-        const code = document.createElement("code");
+        t codeBlock = document.createElement("pre");
+        t code = document.createElement("code");
         code.innerText = codeBlockContent.join("\n"); // Adaugă conținutul ca un block
         codeBlock.classList.add("codeblock");
         codeBlock.appendChild(code);
@@ -173,7 +170,7 @@ function showChanges(lines) {
       }
       line = line.trim(); // Elimină spațiile de după #
       if (count > 6) count = 6; // HTML suportă doar <h1> până la <h6>
-      const header = document.createElement(`h${count}`);
+      t header = document.createElement(`h${count}`);
       header.innerHTML = line;
       previewResult.append(header);
     }
@@ -189,14 +186,14 @@ function showChanges(lines) {
 
       let numberedList = lines.slice(i, j);
       if (numberedList.length > 0) {
-        const orderedList = document.createElement("ol");
+        t orderedList = document.createElement("ol");
 
         for (let k = 0; k < numberedList.length; k++) {
-          const element = numberedList[k];
+          t element = numberedList[k];
 
           numberedList[k] = processLine(numberedList[k]);
 
-          const listItem = document.createElement("li");
+          t listItem = document.createElement("li");
           listItem.innerHTML = element.replace(/^\d+\.\s*/, ""); // Scoate numărul și punctul
           orderedList.append(listItem);
         }
@@ -218,14 +215,14 @@ function showChanges(lines) {
 
       let bulletList = lines.slice(i, j);
       if (bulletList.length > 0) {
-        const unorderedList = document.createElement("ul");
+        t unorderedList = document.createElement("ul");
 
         for (let k = 0; k < bulletList.length; k++) {
-          const element = bulletList[k];
+          t element = bulletList[k];
 
           bulletList[k] = processLine(bulletList[k]);
 
-          const listItem = document.createElement("li");
+          t listItem = document.createElement("li");
           listItem.innerHTML = element.slice(1); // Scoate -
           unorderedList.append(listItem);
         }
@@ -239,7 +236,7 @@ function showChanges(lines) {
 
     // Dacă linia este paragraf highlighted
     else if (line.startsWith(">")) {
-      const paragraphHigh = document.createElement("div");
+      t paragraphHigh = document.createElement("div");
       paragraphHigh.classList.add("paraHigh");
       paragraphHigh.innerHTML = line.slice(1);
 
@@ -248,7 +245,7 @@ function showChanges(lines) {
 
     // Dacă linia este altceva (text simplu)
     else {
-      const paragraph = document.createElement("p");
+      t paragraph = document.createElement("p");
       paragraph.innerHTML = line;
       previewResult.append(paragraph);
     }
@@ -257,9 +254,9 @@ function showChanges(lines) {
 
 function isNumberedList(line) {
   // Verificăm dacă începe cu un număr urmat de un punct
-  const match = line.match(/^(\d+)\./);
+  t match = line.match(/^(\d+)\./);
   if (match) {
-    const number = parseInt(match[1]); // Extragem numărul
+    t number = parseInt(match[1]); // Extragem numărul
     if (number === expectedNumber) {
       expectedNumber++; // Creștem numărul așteptat pentru următoarea linie
       return true; // Face parte din lista numerotată
@@ -270,27 +267,27 @@ function isNumberedList(line) {
 
 function processLine(line) {
   // Expresie regulată pentru detectarea linkurilor de forma [text] (link)
-  const linkRegex = /\[([^\]]+)\]\s*\(([^)]+)\)/g;
+  t linkRegex = /\[([^\]]+)\]\s*\(([^)]+)\)/g;
 
   // Expresie regulată pentru detectarea codului inline între backticks (`...`)
-  const inlineCodeRegex = /`([^`]+)`/g;
+  t inlineCodeRegex = /`([^`]+)`/g;
 
   // Înlocuiește codul inline cu un element HTML <code>
   line = line.replace(inlineCodeRegex, (match, code) => {
-    const codeElement = document.createElement("code");
+    t codeElement = document.createElement("code");
     codeElement.innerText = code.trim();
-    const div = document.createElement("div");
+    t div = document.createElement("div");
     div.appendChild(codeElement);
     return div.innerHTML; // Returnăm HTML-ul pentru cod
   });
 
   // Înlocuiește fiecare link găsit cu un element HTML <a>
   line = line.replace(linkRegex, (match, text, url) => {
-    const link = document.createElement("a");
+    t link = document.createElement("a");
     link.href = url.trim();
     link.innerText = text.trim();
     // link.target = "_blank"; // Deschide linkul într-o fereastră nouă
-    const div = document.createElement("div");
+    t div = document.createElement("div");
     div.appendChild(link);
     return div.innerHTML; // Returnăm HTML-ul pentru link
   });
