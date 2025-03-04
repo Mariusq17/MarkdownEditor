@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="mainContainer">
+      <div class="navbar">
+        <div class="burger-menu" id="burgerMenu">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="antet">
+          <div class="document-infos">
+            <i id="fileIcon" class="fa-regular fa-file"></i>
+            <i id="closeMenu" class="fa-regular fa-x"></i>
+            <div class="document-info show">
+              <input
+                type="text"
+                class="document-name noselect"
+                id="documentName"
+                maxlength="50"
+                placeholder="Write document name..."
+                autocomplete="off"
+              />
+              <input
+                type="text"
+                class="document-extension noselect"
+                id="documentExtension"
+                maxlength="25"
+                placeholder="Write document extension..."
+                autocomplete="off"
+              />
+              <p id="errorMessage">The extension must be <b>".md"</b></p>
+              <button id="goPreview">Preview mode</button>
+              <button id="goEditor">Editor mode</button>
+            </div>
+          </div>
+          <div class="control-panel">
+            <button id="clearBtn" class="checkeds">
+              <div class="trash-can-icon">
+                <div class="lid"></div>
+                <div class="trash-can"></div>
+              </div>
+              <span class="text-container">
+                <span class="text">Delete</span>
+              </span>
+              <span class="check-sign"> &#10003</span>
+            </button>
+            <button class="save-changes-btn">
+              <i class="fa-solid fa-floppy-disk"></i>
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="editor-side">
+        <div class="markdown-side show">
+          <div class="antet">Markdown</div>
+          <textarea name="markdown" id="markdown" class="noselect">
+          </textarea>
+        </div>
+        <div class="preview-side ">
+          <div class="antet">
+            Preview
+            <i class="fa-solid fa-eye"></i>
+          </div>
+          <div id="preview"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
